@@ -11,6 +11,11 @@ def bubble_sort(arr):
 
 lista = [6,7,8,3,10,19,4,1,0,61,30,16,17,82,29,34,43,21,11,39,56,67,12]
 
-#print(lista.sort())
 print(bubble_sort(lista))
+
+lista = [6,7,8,3,10,19,4,1,0,61,30,16,17,82,29,34,43,21,11,39,56,67,12]
+print(lista)
+
+lista.sort()
+print(lista)
 
