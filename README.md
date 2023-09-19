@@ -22,4 +22,4 @@ Contribuições são sempre bem-vindas! Se você encontrar um erro ou tiver uma 
 
 ## 📜 Licença
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE.md para mais detalhes.
+Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para mais detalhes.
