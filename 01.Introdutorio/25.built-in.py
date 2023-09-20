@@ -28,4 +28,4 @@ print(f"Min: {min(array)}")
 
 list1 = [16,23,44,75]
 
-print(f"Sum: {sum(list1)}")
+print(f"Sum: {sum(list1)}") #teste git bash
