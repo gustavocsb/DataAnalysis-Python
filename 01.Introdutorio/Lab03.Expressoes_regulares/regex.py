@@ -1,3 +1,5 @@
+import re
+
 # Variável do tipo String
 lyrics = '''
 Todos os dias quando acordo
@@ -48,3 +50,31 @@ print(lyrics)
 # 3. Extrair as palavras seguidas por exclamação.
 # 4. Extrair quaisquer palavras cujo antecessor seja 'esse' e o sucessor seja a palavra 'amargo'.
 # 5. Retornar as palavras com acento, mas somente os caracteres na palavra que são anteriores ao caracter com acento.
+
+# ****************************************************************************************************************************************************************************
+# 1.
+#contador = re.findall("a", lyrics)
+#resultado = len(contador)
+
+# Contando apenas 'a'
+#resultado = len(re.findall("a", lyrics))
+
+# Contando 'a' e 'A'
+resultado = len(re.findall("a", lyrics, re.IGNORECASE))
+
+print(f"O caractere 'a' aparece {resultado} vezes na lyrics.")
+
+# ****************************************************************************************************************************************************************************
+# 2.
+resultado = len(re.findall(r"\btempo\b", lyrics))
+
+print(f"A palavra 'tempo' apareceu {resultado} vezes na lyrics.")
+
+# ****************************************************************************************************************************************************************************
+# 3.
+resultado = re.findall(r"\b\w+!", lyrics)
+
+print(f"As palavras seguidas por exclamação são: {resultado}")
+
+# ****************************************************************************************************************************************************************************
+# 4.
