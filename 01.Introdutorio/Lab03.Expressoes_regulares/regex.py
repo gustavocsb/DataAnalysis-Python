@@ -78,3 +78,12 @@ print(f"As palavras seguidas por exclamação são: {resultado}")
 
 # ****************************************************************************************************************************************************************************
 # 4.
+resultado = re.findall(r"\besse\s(\w+)\samargo\b", lyrics)
+
+print(f"As palavras entre 'esse' e 'amargo' são: {resultado}")
+
+# ****************************************************************************************************************************************************************************
+# 5.
+resultado = re.findall(r"\b[\wÀ-ÿ]+[áéíóúãõç]", lyrics)
+
+print(f"As palavras acentuadas são: {resultado}")
