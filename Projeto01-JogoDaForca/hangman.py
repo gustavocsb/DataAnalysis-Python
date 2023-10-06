@@ -10,6 +10,9 @@ def limpar_tela():
     else:
         _ = system('clear')
 
+def pause():
+    input("Aperte ENTER para continuar")
+
 def get_VerdurasLegumes(url):
     #resposta = requests.get(url)
     #soup = BeautifulSoup(resposta.text, 'html.parser')
@@ -87,33 +90,67 @@ def get_PCH(url):
 pch_hard = get_PCH("https://pt.wikipedia.org/wiki/Lista_de_partes_da_anatomia_humana")
 pch_easy = list(filter(lambda x: len(x) < 11, pch_hard))
 
-def get_CP(url):
-    print(requests.get(url).text)
+def get_CidPais(url):
+    elementos = BeautifulSoup(requests.get(url).text, 'html.parser').find_all('tr')
 
     palavras = []
 
+    for elemento in elementos:
+        cols = elemento.find_all('td')
+        if len(cols) >= 2:
+            pais = cols[0].find('a').text
+            capital = cols[1].text
+            palavras.append(pais)
+            palavras.append(capital)
+
     return palavras
 
-cp_hard = get_CP("https://www.sport-histoire.fr/pt/Geografia/Paises_por_ordem_alfabetica.php")
-#cp_easy = list(filter(lambda x: len(x) < 9, cp_hard))
-#print(f"CP Hard:\n{cep_hard}\n\n\nCP Easy:\n{cp_easy}")
+CidPais_hard = get_CidPais("https://www.sport-histoire.fr/pt/Geografia/Paises_por_ordem_alfabetica.php")
+CidPais_easy = list(filter(lambda x: len(x) < 9, CidPais_hard))
+
+# Temas:
+# FVL_hard : FVL_easy
+# filmes_hard : filmes_easy
+# pch_hard : pch_easy
+# CidPais_hard : CidPais_easy
 
 
-
-
-
-'''
 def hangman():
-    limpar_tela()
-    print(" _   _                           __  __                 ")
-    print("| | | |   __ _   _ __     __ _  |  \/  |   __ _   _ __  ")
-    print("| |_| |  / _` | | '_ \   / _` | | |\/| |  / _` | | '_ \ ")
-    print("|  _  | | (_| | | | | | | (_| | | |  | | | (_| | | | | |")
-    print("|_| |_|  \__,_| |_| |_|  \__, | |_|  |_|  \__,_| |_| |_|")
-    print("                         |___/                          ")
-
-
+    sair = 0
+    while sair == 0:
+        limpar_tela()
+        print(" _   _                           __  __                 ")
+        print("| | | |   __ _   _ __     __ _  |  \/  |   __ _   _ __  ")
+        print("| |_| |  / _` | | '_ \   / _` | | |\/| |  / _` | | '_ \ ")
+        print("|  _  | | (_| | | | | | | (_| | | |  | | | (_| | | | | |")
+        print("|_| |_|  \__,_| |_| |_|  \__, | |_|  |_|  \__,_| |_| |_|")
+        print("                         |___/                          \n")
+        pause()
+        print("\nEscolha um tema:\n")
+        print("1 - Frutas, Verduras e Legumes   2 - Filmes")
+        print("3 - Partes do Corpo Humano       4 - Cidades / Países")
+        print("0 - Sair")
+        aux = int(input("\nDigite uma opção: "))
+        if aux == 0:
+            while True:
+                confirmaSaida=input("Tem certeza que deseja sair? (S/N)\n")
+                if confirmaSaida.lower() in ["s","n"]:
+                    break
+                else:
+                    print("Letra inválida, responda com 'S' ou 'N' ")
+            if confirmaSaida.lower() == "s":
+                sair = 1
+        elif aux == 1:
+            print("Teste")
+        elif aux == 2:
+            print("Teste")
+        elif aux == 3:
+            print("Teste")
+        elif aux == 4:
+            print("Teste")
+        else:
+            print("Número inválido. Digite novamente!")
 
 
 hangman()
-'''
+
