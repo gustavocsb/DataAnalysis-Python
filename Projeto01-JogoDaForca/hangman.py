@@ -116,8 +116,10 @@ CidPais_easy = list(filter(lambda x: len(x) < 9, CidPais_hard))
 
 
 def hangman():
-    sair = 0
-    while sair == 0:
+    sair = False
+
+    while sair == False:
+        voltar = False
         limpar_tela()
         print(" _   _                           __  __                 ")
         print("| | | |   __ _   _ __     __ _  |  \/  |   __ _   _ __  ")
@@ -131,7 +133,8 @@ def hangman():
         print("3 - Partes do Corpo Humano       4 - Cidades / Países")
         print("0 - Sair")
         aux = int(input("\nDigite uma opção: "))
-        if aux == 0:
+
+        if aux == 0:      
             while True:
                 confirmaSaida=input("Tem certeza que deseja sair? (S/N)\n")
                 if confirmaSaida.lower() in ["s","n"]:
@@ -139,15 +142,87 @@ def hangman():
                 else:
                     print("Letra inválida, responda com 'S' ou 'N' ")
             if confirmaSaida.lower() == "s":
-                sair = 1
+                sair = True
+
         elif aux == 1:
-            print("Teste")
+            print("\n***************************************************")
+            print(" _____  __     __  _     ")
+            print("|  ___| \ \   / / | |    ")
+            print("| |_     \ \ / /  | |    ")
+            print("|  _|     \ V /   | |___ ")
+            print("|_|        \_/    |_____|\n")
+            while voltar == False:
+                print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
+                dificuldade = int(input("\nDigite uma opção: "))
+                if dificuldade == 1:
+                    print("TO DO")
+                elif dificuldade == 2:
+                    print("TO DO")
+                elif dificuldade == 0:
+                    voltar = True
+                else:
+                    print("Número inválido. Digite novamente!") 
+
         elif aux == 2:
-            print("Teste")
+            print("\n***************************************************")
+            print(" _____   _   _                          ")
+            print("|  ___| (_) | |  _ __ ___     ___   ___ ")
+            print("| |_    | | | | | '_ ` _ \\   / _ \\ / __|")
+            print("|  _|   | | | | | | | | | | |  __/ \\__ \\")
+            print("|_|     |_| |_| |_| |_| |_|  \\___| |___/\n")
+                                         
+            while voltar == False:
+                print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
+                dificuldade = int(input("\nDigite uma opção: "))
+                if dificuldade == 1:
+                    print("TO DO")
+                elif dificuldade == 2:
+                    print("TO DO")
+                elif dificuldade == 0:
+                    voltar = True 
+                else:
+                    print("Número inválido. Digite novamente!") 
+
         elif aux == 3:
-            print("Teste")
+            print("\n***************************************************")
+            print(" ____     ____   _   _ ")
+            print("|  _ \   / ___| | | | |")
+            print("| |_) | | |     | |_| |")
+            print("|  __/  | |___  |  _  |")
+            print("|_|      \____| |_| |_|\n")
+                        
+            while voltar == False:
+                print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
+                dificuldade = int(input("\nDigite uma opção: "))
+                if dificuldade == 1:
+                    print("TO DO")
+                elif dificuldade == 2:
+                    print("TO DO")
+                elif dificuldade == 0:
+                    voltar = True 
+                else:
+                    print("Número inválido. Digite novamente!") 
+
         elif aux == 4:
-            print("Teste")
+            print("\n***************************************************")
+            print("  ____   _       _        __    ____            _       ")
+            print(" / ___| (_)   __| |      / /   |  _ \    __ _  (_)  ___ ")
+            print("| |     | |  / _` |     / /    | |_) |  / _` | | | / __|")
+            print("| |___  | | | (_| |    / /     |  __/  | (_| | | | \__ \\")
+            print(" \____| |_|  \__,_|   /_/      |_|      \__,_| |_| |___/ \n")
+                                                         
+            while voltar == False:
+                print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
+                dificuldade = int(input("\nDigite uma opção: "))
+                if dificuldade == 1:
+                    print("TO DO")
+                elif dificuldade == 2:
+                    print("TO DO")
+                elif dificuldade == 0:
+                    voltar = True 
+                else:
+                    print("Número inválido. Digite novamente!") 
+
         else:
             print("Número inválido. Digite novamente!")
 
