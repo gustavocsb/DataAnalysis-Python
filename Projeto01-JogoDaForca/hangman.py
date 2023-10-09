@@ -145,21 +145,64 @@ def hangman():
                 sair = True
 
         elif aux == 1:
-            print("\n***************************************************")
-            print(" _____  __     __  _     ")
-            print("|  ___| \ \   / / | |    ")
-            print("| |_     \ \ / /  | |    ")
-            print("|  _|     \ V /   | |___ ")
-            print("|_|        \_/    |_____|\n")
             while voltar == False:
+                print("\n***************************************************")
+                print(" _____  __     __  _     ")
+                print("|  ___| \ \   / / | |    ")
+                print("| |_     \ \ / /  | |    ")
+                print("|  _|     \ V /   | |___ ")
+                print("|_|        \_/    |_____|\n")
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
                 if dificuldade == 1:
-                    print("TO DO")
+                    palavra = random.choice(FVL_hard)
+                    qtdLetras = [ '_' for letra in palavra]
+                    chances = len(palavra)
+                    letras_erradas = []
+                    letras_usadas = []
+                    while chances > 0:
+                        limpar_tela()
+                        print("\n***************************************************")
+                        print(" _____  __     __  _     ")
+                        print("|  ___| \ \   / / | |    ")
+                        print("| |_     \ \ / /  | |    ")
+                        print("|  _|     \ V /   | |___ ")
+                        print("|_|        \_/    |_____|\n")
+                        print(" ".join(qtdLetras))
+                        print("\nTentativas restantes:",chances)
+                        print("Letras erradas:", " ".join(letras_erradas))
+
+                        tentativa = input("\nDigite uma letra: ").lower()
+                        while tentativa in letras_usadas:
+                            print("Você já usou essa letra.")
+                            tentativa = input("\nDigite uma letra: ").lower()
+
+                        letras_usadas.append(tentativa)
+
+                        if tentativa in palavra:
+                            i = 0
+                            for letra in palavra:
+                                if tentativa == letra:
+                                    qtdLetras[i] = letra
+                                i+=1
+                        else:
+                            chances-=1
+                            letras_erradas.append(tentativa)
+
+                        if chances == 0:
+                            print("\nVocê perdeu! A palavra era:", palavra,"\n")
+                            pause()
+                            limpar_tela()
+
                 elif dificuldade == 2:
-                    print("TO DO")
+                    palavra = random.choice(FVL_easy)
+                    qtdLetras = [ '_' for letra in palavra]
+                    chances = len(palavra)
+                    letras_erradas = []
+
                 elif dificuldade == 0:
                     voltar = True
+
                 else:
                     print("Número inválido. Digite novamente!") 
 
@@ -175,11 +218,20 @@ def hangman():
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
                 if dificuldade == 1:
-                    print("TO DO")
+                    palavra = random.choice(filmes_hard)
+                    qtdLetras = [ '_' for letra in palavra]
+                    chances = len(palavra) + 4
+                    letras_erradas = []
+
                 elif dificuldade == 2:
-                    print("TO DO")
+                    palavra = random.choice(filmes_easy)
+                    qtdLetras = [ '_' for letra in palavra]
+                    chances = len(palavra) + 4
+                    letras_erradas = []
+
                 elif dificuldade == 0:
                     voltar = True 
+
                 else:
                     print("Número inválido. Digite novamente!") 
 
@@ -195,11 +247,20 @@ def hangman():
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
                 if dificuldade == 1:
-                    print("TO DO")
+                    palavra = random.choice(pch_hard)
+                    qtdLetras = [ '_' for letra in palavra]
+                    chances = len(palavra) + 4
+                    letras_erradas = []
+
                 elif dificuldade == 2:
-                    print("TO DO")
+                    palavra = random.choice(pch_easy)
+                    qtdLetras = [ '_' for letra in palavra]
+                    chances = len(palavra) + 4
+                    letras_erradas = []
+
                 elif dificuldade == 0:
                     voltar = True 
+
                 else:
                     print("Número inválido. Digite novamente!") 
 
@@ -215,11 +276,20 @@ def hangman():
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
                 if dificuldade == 1:
-                    print("TO DO")
+                    palavra = random.choice(CidPais_hard)
+                    qtdLetras = [ '_' for letra in palavra]
+                    chances = len(palavra) + 4
+                    letras_erradas = []
+
                 elif dificuldade == 2:
-                    print("TO DO")
+                    palavra = random.choice(CidPais_easy)
+                    qtdLetras = [ '_' for letra in palavra]
+                    chances = len(palavra) + 4
+                    letras_erradas = []
+
                 elif dificuldade == 0:
                     voltar = True 
+
                 else:
                     print("Número inválido. Digite novamente!") 
 
