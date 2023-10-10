@@ -14,17 +14,13 @@ def pause():
     input("Aperte ENTER para continuar")
 
 def get_VerdurasLegumes(url):
-    #resposta = requests.get(url)
-    #soup = BeautifulSoup(resposta.text, 'html.parser')
-    #elementos = soup.find_all('td')
-
     elementos = BeautifulSoup(requests.get(url).text, 'html.parser').find_all('td')
-    
+
     palavras = []
 
     for i in range(0, len(elementos), 4):
-        palavras_legumes = [p.text for p in elementos[i+1].find_all('p')]
-        palavras_verduras = [p.text for p in elementos[i+2].find_all('p')]
+        palavras_legumes = [p.text.lower() for p in elementos[i+1].find_all('p')]
+        palavras_verduras = [p.text.lower() for p in elementos[i+2].find_all('p')]
         
         for palavra in palavras_legumes + palavras_verduras:
             if ' (' in palavra and ')' in palavra:
@@ -36,17 +32,13 @@ def get_VerdurasLegumes(url):
     return palavras
 
 def get_Frutas(url):
-    #resposta = requests.get(url)
-    #soup = BeautifulSoup(resposta.text, 'html.parser')
-    #elementos = soup.find_all('h2')
-    
     elementos = BeautifulSoup(requests.get(url).text, 'html.parser').find_all('h2')
-    
+
     palavras = []
 
     for i in range(len(elementos)):
         if 'Fruta com' in elementos[i].text:
-            palavras_f = [li.text for li in elementos[i].find_next('ul').find_all('li')]
+            palavras_f = [li.text.lower() for li in elementos[i].find_next('ul').find_all('li')]
             palavras.extend(palavras_f)
 
     return palavras
@@ -79,7 +71,7 @@ def get_PCH(url):
         ul = elemento.find_next('ul')
         if ul:
             for li in ul.find_all('li'):
-                palavra = li.text
+                palavra = li.text.lower()
                 if not any(char.isdigit() for char in palavra):
                     palavra = palavra.split('\n')[0]
                     if len(palavra) > 1 and not palavra.startswith("Lista"):
@@ -98,8 +90,8 @@ def get_CidPais(url):
     for elemento in elementos:
         cols = elemento.find_all('td')
         if len(cols) >= 2:
-            pais = cols[0].find('a').text
-            capital = cols[1].text
+            pais = cols[0].find('a').text.lower()
+            capital = cols[1].text.lower()
             palavras.append(pais)
             palavras.append(capital)
 
@@ -108,11 +100,60 @@ def get_CidPais(url):
 CidPais_hard = get_CidPais("https://www.sport-histoire.fr/pt/Geografia/Paises_por_ordem_alfabetica.php")
 CidPais_easy = list(filter(lambda x: len(x) < 9, CidPais_hard))
 
-# Temas:
-# FVL_hard : FVL_easy
-# filmes_hard : filmes_easy
-# pch_hard : pch_easy
-# CidPais_hard : CidPais_easy
+def hangmanDefault(tema):
+    palavra = random.choice(tema)
+    qtdLetras = [ '_' for letra in palavra]
+    chances = len(palavra)
+    letras_erradas = []
+    letras_usadas = []
+
+    acentos = {
+        'a' : 'àáâã',
+        'e' : 'èéê',
+        'i' : 'ìíî',
+        'o' : 'òóôõ',
+        'u' : 'ùúû',
+        'c' : 'ç'
+    }
+
+    while chances > 0:
+        limpar_tela()
+        print(" ".join(qtdLetras))
+        print("\nTentativas restantes:",chances)
+        print("Letras erradas:", " ".join(letras_erradas))
+
+        tentativa = input("\nDigite uma letra: ").lower()
+        while len(tentativa) != 1 or tentativa in letras_usadas or not tentativa.isalpha:
+            if len(tentativa) != 1:
+                print("Digite apenas uma letra!")
+            elif not tentativa.isalpha():
+                print("Por favor, digite apenas letras.")    
+            else:
+                print("Você já usou essa letra.")
+            tentativa = input("\nDigite uma letra: ").lower()
+
+        letras_usadas.append(tentativa)
+        for chave, valor in acentos.items():
+            if tentativa == chave:
+                letras_usadas.extend(list(valor))
+
+        if tentativa in palavra or any(tentativa in acentos[chave] and chave in palavra for chave in acentos):
+            i = 0
+            for letra in palavra:
+                if tentativa == letra or any(tentativa in acentos[chave] and letra == chave for chave in acentos):
+                    qtdLetras[i] = letra
+                i+=1
+        else:
+            chances-=1
+            letras_erradas.append(tentativa)
+
+        if "_" not in qtdLetras:
+                        print("\nVocê venceu!")
+
+    if chances == 0:
+        print("\nVocê perdeu! A palavra era:", palavra,"\n")
+        pause()
+        limpar_tela()
 
 
 def hangman():
@@ -155,50 +196,10 @@ def hangman():
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
                 if dificuldade == 1:
-                    palavra = random.choice(FVL_hard)
-                    qtdLetras = [ '_' for letra in palavra]
-                    chances = len(palavra)
-                    letras_erradas = []
-                    letras_usadas = []
-                    while chances > 0:
-                        limpar_tela()
-                        print("\n***************************************************")
-                        print(" _____  __     __  _     ")
-                        print("|  ___| \ \   / / | |    ")
-                        print("| |_     \ \ / /  | |    ")
-                        print("|  _|     \ V /   | |___ ")
-                        print("|_|        \_/    |_____|\n")
-                        print(" ".join(qtdLetras))
-                        print("\nTentativas restantes:",chances)
-                        print("Letras erradas:", " ".join(letras_erradas))
-
-                        tentativa = input("\nDigite uma letra: ").lower()
-                        while tentativa in letras_usadas:
-                            print("Você já usou essa letra.")
-                            tentativa = input("\nDigite uma letra: ").lower()
-
-                        letras_usadas.append(tentativa)
-
-                        if tentativa in palavra:
-                            i = 0
-                            for letra in palavra:
-                                if tentativa == letra:
-                                    qtdLetras[i] = letra
-                                i+=1
-                        else:
-                            chances-=1
-                            letras_erradas.append(tentativa)
-
-                        if chances == 0:
-                            print("\nVocê perdeu! A palavra era:", palavra,"\n")
-                            pause()
-                            limpar_tela()
+                    hangmanDefault(FVL_hard)
 
                 elif dificuldade == 2:
-                    palavra = random.choice(FVL_easy)
-                    qtdLetras = [ '_' for letra in palavra]
-                    chances = len(palavra)
-                    letras_erradas = []
+                    hangmanDefault(FVL_easy)
 
                 elif dificuldade == 0:
                     voltar = True
@@ -218,16 +219,10 @@ def hangman():
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
                 if dificuldade == 1:
-                    palavra = random.choice(filmes_hard)
-                    qtdLetras = [ '_' for letra in palavra]
-                    chances = len(palavra) + 4
-                    letras_erradas = []
+                    hangmanDefault(filmes_hard)
 
                 elif dificuldade == 2:
-                    palavra = random.choice(filmes_easy)
-                    qtdLetras = [ '_' for letra in palavra]
-                    chances = len(palavra) + 4
-                    letras_erradas = []
+                    hangmanDefault(filmes_easy)
 
                 elif dificuldade == 0:
                     voltar = True 
@@ -247,16 +242,10 @@ def hangman():
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
                 if dificuldade == 1:
-                    palavra = random.choice(pch_hard)
-                    qtdLetras = [ '_' for letra in palavra]
-                    chances = len(palavra) + 4
-                    letras_erradas = []
+                    hangmanDefault(pch_hard)
 
                 elif dificuldade == 2:
-                    palavra = random.choice(pch_easy)
-                    qtdLetras = [ '_' for letra in palavra]
-                    chances = len(palavra) + 4
-                    letras_erradas = []
+                    hangmanDefault(pch_easy)
 
                 elif dificuldade == 0:
                     voltar = True 
@@ -276,16 +265,10 @@ def hangman():
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
                 if dificuldade == 1:
-                    palavra = random.choice(CidPais_hard)
-                    qtdLetras = [ '_' for letra in palavra]
-                    chances = len(palavra) + 4
-                    letras_erradas = []
+                    hangmanDefault(CidPais_hard)
 
                 elif dificuldade == 2:
-                    palavra = random.choice(CidPais_easy)
-                    qtdLetras = [ '_' for letra in palavra]
-                    chances = len(palavra) + 4
-                    letras_erradas = []
+                    hangmanDefault(CidPais_easy)
 
                 elif dificuldade == 0:
                     voltar = True 
