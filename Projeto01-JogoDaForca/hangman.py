@@ -279,6 +279,6 @@ def hangman():
         else:
             print("Número inválido. Digite novamente!")
 
-
-hangman()
+if __name__ == '__main__':
+    hangman()
 
