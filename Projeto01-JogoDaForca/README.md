@@ -1,4 +1,4 @@
-# 🎮 HangMan (Jogo da Forca)#
+# 🎮 HangMan (Jogo da Forca) #
 Este é um projeto de Jogo da Forca desenvolvido em Python. O jogo apresenta quatro temas diferentes e dois níveis de dificuldade (fácil e difícil). O nível fácil consiste em palavras menores dentro de cada tema.
 
 ## 🎯 Recursos
