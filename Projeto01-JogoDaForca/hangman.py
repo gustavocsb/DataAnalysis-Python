@@ -34,12 +34,16 @@ def get_VerdurasLegumes(url):
 def get_Frutas(url):
     elementos = BeautifulSoup(requests.get(url).text, 'html.parser').find_all('h2')
 
+    '''
     palavras = []
 
     for i in range(len(elementos)):
         if 'Fruta com' in elementos[i].text:
             palavras_f = [li.text.lower() for li in elementos[i].find_next('ul').find_all('li')]
             palavras.extend(palavras_f)
+    '''
+    
+    palavras = [li.text.lower() for elemento in elementos if 'Fruta com' in elemento.text for li in elemento.find_next('ul').find_all('li')]
 
     return palavras
 
@@ -213,8 +217,7 @@ def hangman():
             print("|  ___| (_) | |  _ __ ___     ___   ___ ")
             print("| |_    | | | | | '_ ` _ \\   / _ \\ / __|")
             print("|  _|   | | | | | | | | | | |  __/ \\__ \\")
-            print("|_|     |_| |_| |_| |_| |_|  \\___| |___/\n")
-                                         
+            print("|_|     |_| |_| |_| |_| |_|  \\___| |___/\n")                                         
             while voltar == False:
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
@@ -259,8 +262,7 @@ def hangman():
             print(" / ___| (_)   __| |      / /   |  _ \    __ _  (_)  ___ ")
             print("| |     | |  / _` |     / /    | |_) |  / _` | | | / __|")
             print("| |___  | | | (_| |    / /     |  __/  | (_| | | | \__ \\")
-            print(" \____| |_|  \__,_|   /_/      |_|      \__,_| |_| |___/ \n")
-                                                         
+            print(" \____| |_|  \__,_|   /_/      |_|      \__,_| |_| |___/ \n")                                                         
             while voltar == False:
                 print("Escolha a dificuldade:\n1 - Hard     2 - Easy\n0 - Voltar")
                 dificuldade = int(input("\nDigite uma opção: "))
