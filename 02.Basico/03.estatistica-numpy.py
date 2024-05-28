@@ -36,4 +36,4 @@ A fórmula da variância é dada por: Σ(xi - μ)² / n, onde xi é o valor de c
 
 IMPORTANTE: Nota-se que a variância pode ser influenciada por valores extremos (outliers) e pode ser afetada por diferentes distribuições de dados.
 '''
-print(f'Variância: {np.var(arr1)}')
+print(f'Variância: {np.var(arr1)}\n')
