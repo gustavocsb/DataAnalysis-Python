@@ -29,4 +29,3 @@ print(f'Multiplicação Matriz A * Matriz B: \n{arrMult}\n') # Para usar o méto
 for i in range(arrMult.shape[0]):
     for j in range(arrMult.shape[1]):
         print(f'O elemento {i+1},{j+1} foi obtido com [{arr4[i,0]}*{arr5[0,j]} + {arr4[i,1]}*{arr5[1,j]}] = {arrMult[i,j]}')
-
